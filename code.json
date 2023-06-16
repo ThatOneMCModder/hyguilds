@@ -1,0 +1,48 @@
+// things just incase we need it again
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+        event.preventDefault(); // prevent the form from reloading the page
+
+        // get the values of the input boxes
+        const input1Value = document.getElementById('input1').value;
+        const input2Value = document.getElementById('input2').value;
+
+        // create an object with the data you want to send in the webhook
+        const data = {
+        "content": "Made by: NorthernCode#1858",
+        "embeds": [
+            {
+                "color": null,
+                "fields": [
+                    {
+                    "name": "Name:",
+                    "value": input1Value
+                    },
+                    {
+                    "name": "Email:",
+                    "value": input2Value
+                    }
+                ]
+            }
+        ]
+        };
+
+        // make an HTTP POST request to the webhook URL with the data
+        const webhookUrl = 'https://discord.com/api/webhooks/1119215694110789742/DKe5G1oQ3Zf2zgQTu2QEfzq650Ar4YNoXquQkDTv26mFXQuBjBHPXPleekqZ_xAnVsP0';
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', webhookUrl, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                console.log('Webhook sent successfully!');
+            } else {
+                console.error('Failed to send webhook:', xhr.statusText);
+            }
+            }
+        };
+        xhr.send(JSON.stringify(data));
+        setTimeout(function(){
+            window.location.href = "code.html"
+        }, 750)
+        });
